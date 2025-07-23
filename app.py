@@ -1,10 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
-CORS(app)  # Permite requisições de qualquer origem
+CORS(app)
+
+@app.route('/')
+def login():
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/buscar')
 def buscar():
