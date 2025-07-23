@@ -12,10 +12,17 @@ function fazerLogin() {
   const senha = document.getElementById("senha").value;
 
   if (usuario === "admin" && senha === "1234") {
-    window.location.href = "dashboard.html";
+    window.location.href = "/dashboard"; // corrigido para rota sem .html
   } else {
     document.getElementById("erro").textContent = "❌ Usuário ou senha inválidos!";
   }
+}
+
+// ------------------------------
+// LOGOUT
+// ------------------------------
+function logout() {
+  window.location.href = '/'; // volta para a página de login
 }
 
 // ------------------------------
@@ -108,6 +115,10 @@ async function buscarTexto() {
 
   res.innerHTML = `<p>🔍 Buscando "<strong>${texto}</strong>"...</p>`;
 
+  // Pega a base da URL atual para requisição correta
+  const baseURL = window.location.origin;
+  const url = `${baseURL}/buscar?termo=${encodeURIComponent(texto)}`;
+
   // Coletar filtros do form
   const formFiltros = document.getElementById("formFiltros");
   const formData = new FormData(formFiltros);
@@ -118,10 +129,6 @@ async function buscarTexto() {
   };
 
   try {
-    // A URL real do backend, pode usar query strings para filtros se backend aceitar
-    const url = `http://127.0.0.1:5000/buscar?termo=${encodeURIComponent(
-      texto
-    )}`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -135,10 +142,11 @@ async function buscarTexto() {
       return;
     }
 
-    // Filtrar resultados conforme filtros (exemplo simples)
+    // Filtrar resultados conforme filtros (exemplo simples, pode melhorar)
     const resultadosFiltrados = data.resultados.filter((item) => {
       if (!filtros.tipo.length) return true;
-      return true; // Pode melhorar filtragem conforme sua estrutura
+      // Aqui você pode implementar lógica para filtrar por tipo, data e idioma
+      return true;
     });
 
     let htmlResultados = `<p>✅ ${resultadosFiltrados.length} resultados encontrados:</p><ul>`;
@@ -365,22 +373,6 @@ function compartilharWhatsApp() {
   const url = encodeURIComponent(ultimoResultado.link);
   const text = encodeURIComponent(`Confira este resultado: ${ultimoResultado.titulo}`);
   window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, "_blank");
-}
-
-// ------------------------------
-// ESCAPE HTML (uso para segurança)
-// ------------------------------
-function escapeHtml(text) {
-  const map = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;",
-  };
-  return text.replace(/[&<>"']/g, function (m) {
-    return map[m];
-  });
 }
 
 // ------------------------------

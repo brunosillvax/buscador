@@ -4,19 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>📡 Painel - Busca Profunda</title>
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <!-- Font Awesome para ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <header>
     <h1>🧠 <span id="titulo-principal">Buscador Profundo</span></h1>
     <div class="header-actions">
+      <label for="selectIdioma" class="sr-only">Selecionar idioma</label>
       <select id="selectIdioma" aria-label="Selecionar idioma" onchange="mudarIdioma()">
         <option value="pt-BR" selected>🇧🇷 Português</option>
         <option value="en-US">🇺🇸 English</option>
         <option value="es-ES">🇪🇸 Español</option>
       </select>
-      <button onclick="logout()" aria-label="Sair do sistema">🔙 Sair</button>
+      <button onclick="logout()" aria-label="Sair do sistema" type="button">🔙 Sair</button>
     </div>
   </header>
 
@@ -28,13 +32,16 @@
         <input
           type="text"
           id="buscaTexto"
+          name="buscaTexto"
           placeholder="Digite algo secreto..."
           autocomplete="off"
           aria-describedby="descricaoBusca"
+          oninput="mostrarSugestoes()"
+          onblur="esconderSugestoes()"
         />
         <ul id="listaSugestoes" class="lista-sugestoes" role="listbox" tabindex="0" aria-label="Sugestões de busca"></ul>
       </div>
-      <button onclick="buscarTexto()" aria-label="Buscar texto">🔎 Buscar</button>
+      <button onclick="buscarTexto()" aria-label="Buscar texto" type="button">🔎 Buscar</button>
     </section>
 
     <!-- Filtros Avançados -->
@@ -76,7 +83,7 @@
     <section aria-label="Busca por imagem" class="busca-imagem">
       <h2 id="labelBuscaImagem">🖼️ Buscar por Imagem</h2>
       <input type="file" id="imagemUpload" accept="image/*" aria-label="Selecione uma imagem" />
-      <button onclick="buscarImagem()" aria-label="Buscar imagem">🧬 Buscar Imagem</button>
+      <button onclick="buscarImagem()" aria-label="Buscar imagem" type="button">🧬 Buscar Imagem</button>
     </section>
 
     <!-- Resultados -->
@@ -100,10 +107,10 @@
   <!-- Compartilhamento social -->
   <aside class="social-share neon-box">
     <h3 id="labelCompartilhar">📢 Compartilhar último resultado</h3>
-    <button onclick="compartilharTwitter()" aria-label="Compartilhar no Twitter" class="btn-twitter">
+    <button onclick="compartilharTwitter()" aria-label="Compartilhar no Twitter" class="btn-twitter" type="button">
       <i class="fab fa-twitter"></i> Twitter
     </button>
-    <button onclick="compartilharWhatsApp()" aria-label="Compartilhar no WhatsApp" class="btn-whatsapp">
+    <button onclick="compartilharWhatsApp()" aria-label="Compartilhar no WhatsApp" class="btn-whatsapp" type="button">
       <i class="fab fa-whatsapp"></i> WhatsApp
     </button>
   </aside>
