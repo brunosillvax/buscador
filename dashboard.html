@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📡 Painel - Busca Profunda</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <h1>🧠 <span id="titulo-principal">Buscador Profundo</span></h1>
+    <div class="header-actions">
+      <select id="selectIdioma" aria-label="Selecionar idioma" onchange="mudarIdioma()">
+        <option value="pt-BR" selected>🇧🇷 Português</option>
+        <option value="en-US">🇺🇸 English</option>
+        <option value="es-ES">🇪🇸 Español</option>
+      </select>
+      <button onclick="logout()" aria-label="Sair do sistema">🔙 Sair</button>
+    </div>
+  </header>
+
+  <main class="container painel neon-box">
+    <!-- Busca Texto -->
+    <section aria-label="Busca por texto" class="busca-container">
+      <h2 id="labelBuscaTexto">🔍 Buscar por Texto</h2>
+      <div style="position: relative;">
+        <input
+          type="text"
+          id="buscaTexto"
+          placeholder="Digite algo secreto..."
+          autocomplete="off"
+          oninput="mostrarSugestoes()"
+          onblur="esconderSugestoes()"
+          onfocus="mostrarSugestoes()"
+          aria-describedby="descricaoBusca"
+        />
+        <ul id="listaSugestoes" class="lista-sugestoes" role="listbox" tabindex="0" aria-label="Sugestões de busca"></ul>
+      </div>
+      <button onclick="buscarTexto()" aria-label="Buscar texto">🔎 Buscar</button>
+    </section>
+
+    <!-- Filtros Avançados -->
+    <section aria-label="Filtros avançados" class="filtros-container">
+      <h3 id="labelFiltros">⚙️ Filtros Avançados</h3>
+      <form id="formFiltros" onsubmit="aplicarFiltros(event)">
+        <fieldset>
+          <legend>Tipo de Resultado</legend>
+          <label><input type="checkbox" name="tipo" value="texto" checked /> Texto</label>
+          <label><input type="checkbox" name="tipo" value="imagem" checked /> Imagem</label>
+          <label><input type="checkbox" name="tipo" value="video" checked /> Vídeo</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Data</legend>
+          <select name="data" aria-label="Filtro por data">
+            <option value="todos">Todos</option>
+            <option value="24h">Últimas 24h</option>
+            <option value="semana">Última semana</option>
+            <option value="mes">Último mês</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Idioma</legend>
+          <select name="idioma" aria-label="Filtro por idioma">
+            <option value="pt">Português</option>
+            <option value="en">Inglês</option>
+            <option value="es">Espanhol</option>
+            <option value="todos">Todos</option>
+          </select>
+        </fieldset>
+
+        <button type="submit" aria-label="Aplicar filtros">✅ Aplicar filtros</button>
+      </form>
+    </section>
+
+    <!-- Buscar por Imagem -->
+    <section aria-label="Busca por imagem" class="busca-imagem">
+      <h2 id="labelBuscaImagem">🖼️ Buscar por Imagem</h2>
+      <input type="file" id="imagemUpload" accept="image/*" aria-label="Selecione uma imagem" />
+      <button onclick="buscarImagem()" aria-label="Buscar imagem">🧬 Buscar Imagem</button>
+    </section>
+
+    <!-- Resultados -->
+    <section aria-label="Resultados da busca" class="resultados-container">
+      <div id="resultadoBusca" tabindex="0"></div>
+    </section>
+
+    <!-- Favoritos -->
+    <section aria-label="Favoritos" class="favoritos-container neon-box">
+      <h2 id="labelFavoritos">⭐ Favoritos</h2>
+      <ul id="listaFavoritos" class="lista-favoritos" aria-live="polite"></ul>
+    </section>
+
+    <!-- Dashboard estatístico -->
+    <section aria-label="Dashboard estatístico" class="dashboard-container neon-box">
+      <h2 id="labelDashboard">📊 Estatísticas</h2>
+      <canvas id="graficoBuscas" aria-label="Gráfico de buscas"></canvas>
+    </section>
+  </main>
+
+  <!-- Compartilhamento social -->
+  <aside class="social-share neon-box">
+    <h3 id="labelCompartilhar">📢 Compartilhar último resultado</h3>
+    <button onclick="compartilharTwitter()" aria-label="Compartilhar no Twitter" class="btn-twitter">
+      <i class="fab fa-twitter"></i> Twitter
+    </button>
+    <button onclick="compartilharWhatsApp()" aria-label="Compartilhar no WhatsApp" class="btn-whatsapp">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </button>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
