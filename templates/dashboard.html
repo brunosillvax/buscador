@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>📡 Painel - Busca Profunda</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <header>
@@ -30,9 +30,6 @@
           id="buscaTexto"
           placeholder="Digite algo secreto..."
           autocomplete="off"
-          oninput="mostrarSugestoes()"
-          onblur="esconderSugestoes()"
-          onfocus="mostrarSugestoes()"
           aria-describedby="descricaoBusca"
         />
         <ul id="listaSugestoes" class="lista-sugestoes" role="listbox" tabindex="0" aria-label="Sugestões de busca"></ul>
@@ -111,7 +108,8 @@
     </button>
   </aside>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
